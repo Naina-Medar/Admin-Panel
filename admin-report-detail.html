@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Details | Public Grievance Portal</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <div class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-header">
+        <h3>Admin Panel</h3>
+        <button class="btn btn-sm btn-outline-secondary d-md-none" id="sidebarToggle">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+      </div>
+      <ul class="sidebar-menu">
+        <li>
+          <a href="admin-dashboard.html">
+            <i class="bi bi-grid-1x2"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="admin-reports.html">
+            <i class="bi bi-file-text"></i>
+            <span>Reports</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin-analytics.html">
+            <i class="bi bi-bar-chart"></i>
+            <span>Analytics</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin-users.html">
+            <i class="bi bi-people"></i>
+            <span>Users</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin-reports.html?status=Pending">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span>Pending</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin-reports.html?status=Resolved">
+            <i class="bi bi-check-circle"></i>
+            <span>Resolved</span>
+          </a>
+        </li>
+        <li>
+          <a href="admin-settings.html">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn btn-outline-secondary w-100">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </div>
+    <div class="admin-content">
+      <header class="admin-header">
+        <div class="search-container">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search reports...">
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="notification-bell">
+            <button class="btn btn-ghost position-relative">
+              <i class="bi bi-bell"></i>
+              <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger rounded-circle">
+                <span class="visually-hidden">New notifications</span>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle user-dropdown" type="button" id="userDropdown" data-bs-toggle="dropdown">
+              <div class="avatar" id="userAvatar">A</div>
+              <div class="user-info d-none d-md-block">
+                <div class="user-name" id="userName">Admin User</div>
+                <div class="user-role" id="userDepartment">Department</div>
+              </div>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><h6 class="dropdown-header">My Account</h6></li>
+              <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+              <li><a class="dropdown-item" href="admin-settings.html">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" id="logoutLink">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <main class="admin-main">
+        <div id="alertContainer"></div>
+        
+        <div class="container-fluid py-4">
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <a href="admin-reports.html" class="btn btn-outline-secondary btn-sm">
+              <i class="bi bi-arrow-left"></i>
+            </a>
+            <h1 class="h3 mb-0" id="reportTitle">Report Details</h1>
+            <span class="badge bg-info" id="reportStatus">Status</span>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="card mb-4">
+                <div class="card-header bg-white">
+                  <h5 class="card-title mb-0" id="reportTitleHeader">Report Title</h5>
+                  <p class="card-subtitle text-muted" id="reportId">ID: REP-1234</p>
+                </div>
+                <div class="card-body">
+                  <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                      <div class="d-flex align-items-start gap-2">
+                        <i class="bi bi-geo-alt text-muted mt-1"></i>
+                        <div>
+                          <p class="fw-medium mb-0">Location</p>
+                          <p class="text-muted" id="reportLocation">Location</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <div class="d-flex align-items-start gap-2">
+                        <i class="bi bi-calendar text-muted mt-1"></i>
+                        <div>
+                          <p class="fw-medium mb-0">Submitted Date</p>
+                          <p class="text-muted" id="reportDate">Date</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <div class="d-flex align-items-start gap-2">
+                        <i class="bi bi-person text-muted mt-1"></i>
+                        <div>
+                          <p class="fw-medium mb-0">Submitted By</p>
+                          <p class="text-muted" id="reportSubmitter">Name</p>
+                          <p class="text-muted small" id="reportSubmitterEmail">Email</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <div class="d-flex align-items-start gap-2">
+                        <i class="bi bi-exclamation-triangle text-muted mt-1"></i>
+                        <div>
+                          <p class="fw-medium mb-0">Priority</p>
+                          <p id="reportPriority">Priority</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr>
+
+                  <div class="mb-4">
+                    <h6 class="fw-medium">Description</h6>
+                    <p id="reportDescription">Description</p>
+                  </div>
+
+                  <div>
+                    <h6 class="fw-medium">Attached Images</h6>
+                    <div class="row" id="reportImages">
+                      <!-- Images will be loaded here -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="nav nav-tabs mb-4" id="reportTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="comments-tab" data-bs-toggle="tab" data-bs-target="#comments" type="button" role="tab">
+                    Comments
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="timeline-tab" data-bs-toggle="tab" data-bs-target="#timeline" type="button" role="tab">
+                    Timeline
+                  </button>
+                </li>
+              </ul>
+
+              <div class="tab-content">
+                <div class="tab-pane fade show active" id="comments" role="tabpanel">
+                  <div class="card">
+                    <div class="card-header bg-white">
+                      <h5 class="card-title mb-0">Comments</h5>
+                      <p class="card-subtitle text-muted">Communication between officials and citizens</p>
+                    </div>
+                    <div class="card-body">
+                      <div class="comments-list" id="commentsList">
+                        <!-- Comments will be loaded here -->
+                      </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                      <form id="commentForm">
+                        <div class="mb-3">
+                          <textarea class="form-control" id="commentText" rows="3" placeholder="Add a comment..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                          <i class="bi bi-chat-square-text me-2"></i> Add Comment
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="timeline" role="tabpanel">
+                  <div class="card">
+                    <div class="card-header bg-white">
+                      <h5 class="card-title mb-0">Activity Timeline</h5>
+                      <p class="card-subtitle text-muted">History of actions taken on this report</p>
+                    </div>
+                    <div class="card-body">
+                      <div class="timeline" id="timelineList">
+                        <!-- Timeline events will be loaded here -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="card mb-4">
+                <div class="card-header bg-white">
+                  <h5 class="card-title mb-0">Update Report</h5>
+                  <p class="card-subtitle text-muted">Change status, priority, or assignment</p>
+                </div>
+                <div class="card-body">
+                  <form id="updateReportForm">
+                    <div class="mb-3">
+                      <label class="form-label">Status</label>
+                      <select id="statusSelect" class="form-select">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                        <option value="Rejected">Rejected</option>
+                      </select>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Priority</label>
+                      <select id="prioritySelect" class="form-select">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                      </select>
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Assigned To</label>
+                      <select id="assignedToSelect" class="form-select">
+                        <option value="John Smith">John Smith</option>
+                        <option value="Sarah Johnson">Sarah Johnson</option>
+                        <option value="Michael Brown">Michael Brown</option>
+                        <option value="Emily Davis">Emily Davis</option>
+                        <option value="Unassigned">Unassigned</option>
+                      </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Update Report</button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header bg-white">
+                  <h5 class="card-title mb-0">Department Information</h5>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <h6 class="fw-medium">Department</h6>
+                    <p class="text-muted" id="reportDepartment">Department</p>
+                  </div>
+
+                  <div class="mb-3">
+                    <h6 class="fw-medium">Contact</h6>
+                    <p class="text-muted" id="departmentEmail">Email</p>
+                    <p class="text-muted" id="departmentPhone">Phone</p>
+                  </div>
+
+                  <div>
+                    <h6 class="fw-medium">Response SLA</h6>
+                    <p class="text-muted mb-1">High Priority: 24 hours</p>
+                    <p class="text-muted mb-1">Medium Priority: 3 days</p>
+                    <p class="text-muted">Low Priority: 7 days</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/reports.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if user is logged in
+      checkAdminAuth();
+      
+      // Get report ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const reportId = urlParams.get('id');
+      
+      if (!reportId) {
+        showAlert('No report ID specified', 'danger');
+        setTimeout(() => {
+          window.location.href = 'admin-reports.html';
+        }, 2000);
+        return;
+      }
+      
+      // Load report details
+      loadReportDetails(reportId);
+      
+      // Setup form submission
+      document.getElementById('updateReportForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        updateReport(reportId);
+      });
+      
+      document.getElementById('commentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        addComment(reportId);
+      });
+      
+      // Setup logout functionality
+      document.getElementById('logoutBtn').addEventListener('click', logout);
+      document.getElementById('logoutLink').addEventListener('click', logout);
+    });
+  </script>
+</body>
+</html>
